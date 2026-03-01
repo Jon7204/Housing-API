@@ -1,8 +1,7 @@
 # Housing-API
 A backend system that stores housing data and answers questions about rent and affordability.
 
-1. Create virtual environment
-2. Install requirements
-3. Create PostgreSQL database
-4. Add .env file
-5. Run scripts
+# To run the API:
+1. python -m venv venv
+2. source venv/bin/activate
+3. pip install -r requirements.txt
