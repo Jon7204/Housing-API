@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, Query
+from fastapi import FastAPI, Depends, Query, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from typing import List, Optional
@@ -50,19 +50,22 @@ def average_price(
         "average_price": round(avg_price, 2)
     }
 
+
+
 @app.get("/properties", response_model=List[PropertyBase])
 def get_properties(
     postcode: Optional[str] = None,
     property_type: Optional[str] = None,
     start: Optional[date] = None,
     end: Optional[date] = None,
+    sort_by: Optional[str] = Query(None, description="price, -price, date, -date"),
     limit: int = Query(50, ge=1, le=500),
     offset: int = Query(0, ge=0),
     db: Session = Depends(get_db)
 ):
     query = db.query(Property)
 
-    # Apply filters dynamically
+    # Filtering
     if postcode:
         query = query.filter(Property.postcode == postcode)
 
@@ -75,5 +78,22 @@ def get_properties(
     if end:
         query = query.filter(Property.transfer_date <= end)
 
+    # Sorting
+    if sort_by:
+        if sort_by == "price":
+            query = query.order_by(Property.price)
+        elif sort_by == "-price":
+            query = query.order_by(Property.price.desc())
+        elif sort_by == "date":
+            query = query.order_by(Property.transfer_date)
+        elif sort_by == "-date":
+            query = query.order_by(Property.transfer_date.desc())
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid sort_by value. Use: price, -price, date, -date"
+            )
+
     results = query.limit(limit).offset(offset).all()
+
     return results
