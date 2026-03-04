@@ -58,6 +58,8 @@ def get_properties(
     property_type: Optional[str] = None,
     start: Optional[date] = None,
     end: Optional[date] = None,
+    min_price: Optional[int] = None,
+    max_price: Optional[int] = None,
     sort_by: Optional[str] = Query(None, description="price, -price, date, -date"),
     limit: int = Query(50, ge=1, le=500),
     offset: int = Query(0, ge=0),
@@ -77,6 +79,20 @@ def get_properties(
 
     if end:
         query = query.filter(Property.transfer_date <= end)
+    
+    if min_price and max_price:
+        if max_price < min_price:
+            raise HTTPException(
+                status_code=400,
+                detail="max_price must be greater than or equal to min_price"
+            )
+
+     # Price range
+    if min_price:
+        query = query.filter(Property.price >= min_price)
+
+    if max_price:
+        query = query.filter(Property.price <= max_price)
 
     # Sorting
     if sort_by:
