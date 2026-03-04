@@ -9,9 +9,9 @@ A backend system that stores housing data and answers questions about rent and a
 
 # 2. Setup Virtual Environment
 1. python -m venv venv
-If using Mac/Linux:
+If using Mac/Linux:  
 2. source venv/bin/activate
-If using Windows:
+If using Windows:  
 2. venv\Scripts\activate
 
 # 3. Install Dependencies
