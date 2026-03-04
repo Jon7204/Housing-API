@@ -1,5 +1,7 @@
-from sqlalchemy import Column, Integer, String, Date
-from .database import Base
+from sqlalchemy import Column, Integer, String, Date, Index
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class Property(Base):
     __tablename__ = "properties"
@@ -7,6 +9,12 @@ class Property(Base):
     id = Column(Integer, primary_key=True, index=True)
     price = Column(Integer, nullable=False)
     transfer_date = Column(Date, nullable=False)
-    postcode = Column(String(10), index=True)
-    property_type = Column(String(5))
-    tenure = Column(String(20))
+    postcode = Column(String, nullable=False)
+    property_type = Column(String)
+    tenure = Column(String)
+
+    __table_args__ = (
+        Index("idx_postcode", "postcode"),
+        Index("idx_transfer_date", "transfer_date"),
+        Index("idx_postcode_transfer_date", "postcode", "transfer_date"),
+    )
