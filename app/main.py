@@ -4,7 +4,7 @@ from sqlalchemy import func
 from typing import List, Optional
 from datetime import date
 
-from .schemas import PropertyBase
+from .schemas import PropertyBase, PropertyCreate, PropertyUpdate, PropertyResponse
 from .database import SessionLocal
 from .models import Property
 
@@ -116,3 +116,50 @@ def get_property(
         )
 
     return property_obj
+
+@app.post("/properties", response_model=PropertyResponse, status_code=201)
+def create_property(
+    property_data: PropertyCreate,
+    db: Session = Depends(get_db)
+):
+    new_property = Property(**property_data.model_dump())
+
+    db.add(new_property)
+    db.commit()
+    db.refresh(new_property)
+
+    return new_property
+
+@app.put("/properties/{property_id}", response_model=PropertyResponse)
+def update_property(
+    property_id: int,
+    property_data: PropertyUpdate,
+    db: Session = Depends(get_db)
+):
+    property_obj = db.query(Property).filter(Property.id == property_id).first()
+
+    if property_obj is None:
+        raise HTTPException(status_code=404, detail="Property not found")
+
+    for key, value in property_data.model_dump().items():
+        setattr(property_obj, key, value)
+
+    db.commit()
+    db.refresh(property_obj)
+
+    return property_obj
+
+@app.delete("/properties/{property_id}", status_code=204)
+def delete_property(
+    property_id: int,
+    db: Session = Depends(get_db)
+):
+    property_obj = db.query(Property).filter(Property.id == property_id).first()
+
+    if property_obj is None:
+        raise HTTPException(status_code=404, detail="Property not found")
+
+    db.delete(property_obj)
+    db.commit()
+
+    return
