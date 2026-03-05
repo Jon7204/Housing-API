@@ -33,21 +33,36 @@ def property_count(db: Session = Depends(get_db)):
 
 
 @app.get("/properties/average-price")
-def average_price(
-    postcode: str = Query(...),
-    db: Session = Depends(get_db)
-):
-    avg_price = (
-        db.query(func.avg(Property.price))
-        .filter(Property.postcode == postcode)
-        .scalar()
-    )
+def average_price( location: str = Query(...), db: Session = Depends(get_db)):
+    location = location.upper()
+
+    if is_postcode(location):
+        avg_price = (
+            db.query(func.avg(Property.price))
+            .filter(Property.postcode == location)
+            .scalar()
+        )
+
+    elif is_postcode_prefix(location):
+        avg_price = (
+            db.query(func.avg(Property.price))
+            .filter(Property.postcode.like(f"{location}%"))
+            .scalar()
+        )
+
+    else:
+        avg_price = (
+            db.query(func.avg(Property.price))
+            .filter(Property.town_city.ilike(f"%{location}%"))
+            .scalar()
+        )
+
 
     if avg_price is None:
-        return {"postcode": postcode, "average_price": None}
+        return {"location": location, "average_price": None}
 
     return {
-        "postcode": postcode,
+        "location": location,
         "average_price": round(avg_price, 2)
     }
 
