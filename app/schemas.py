@@ -9,8 +9,12 @@ class PropertyBase(BaseModel):
     price: int
     transfer_date: date
     postcode: Optional[str] = None
+    paon: Optional[str] = None
+    street: Optional[str] = None
+    town_city: Optional[str] = None 
     property_type: Optional[str] = None
     tenure: Optional[str] = None
+  
 
 
 # Schema used when creating a property

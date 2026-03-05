@@ -10,8 +10,13 @@ class Property(Base):
     price = Column(Integer, nullable=False)
     transfer_date = Column(Date, nullable=False)
     postcode = Column(String, nullable=False)
+    paon = Column(String)
+    street = Column(String)
+    town_city = Column(String)
+    
     property_type = Column(String)
     tenure = Column(String)
+    
 
     __table_args__ = (
         Index("idx_postcode", "postcode"),

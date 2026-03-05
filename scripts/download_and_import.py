@@ -37,6 +37,9 @@ def import_data_streaming():
                 "postcode": row[3],
                 "property_type": row[4],
                 "tenure": row[6],
+                "paon": row[7],
+                "street": row[9],
+                "town_city": row[11]
             })
 
         db.bulk_insert_mappings(Property, records)
