@@ -121,7 +121,11 @@ def get_properties(
             )
 
     results = query.limit(limit).offset(offset).all()
-
+    if len(results) == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No properties found matching the criteria"
+        )
     return results
 
 @app.get("/properties/{property_id}", response_model=PropertyBase)
