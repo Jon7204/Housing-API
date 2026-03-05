@@ -7,6 +7,7 @@ from datetime import date
 from .schemas import PropertyBase, PropertyCreate, PropertyUpdate, PropertyResponse
 from .database import SessionLocal
 from .models import Property
+from .utils import is_postcode, is_postcode_prefix
 
 app = FastAPI()
 
@@ -54,7 +55,7 @@ def average_price(
 
 @app.get("/properties", response_model=List[PropertyBase])
 def get_properties(
-    postcode: Optional[str] = None,
+    location: Optional[str] = None,
     property_type: Optional[str] = None,
     start: Optional[date] = None,
     end: Optional[date] = None,
@@ -68,8 +69,17 @@ def get_properties(
     query = db.query(Property)
 
     # Filtering
-    if postcode:
-        query = query.filter(Property.postcode.ilike(f"{postcode}%"))
+    if location:
+        location = location.upper()
+
+        if is_postcode(location):
+            query = query.filter(Property.postcode == location)
+
+        elif is_postcode_prefix(location):
+            query = query.filter(Property.postcode.like(f"{location}%"))
+
+        else:
+            query = query.filter(Property.town_city.ilike(f"%{location}%"))
 
     if property_type:
         query = query.filter(Property.property_type == property_type)
