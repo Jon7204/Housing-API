@@ -69,7 +69,7 @@ def get_properties(
 
     # Filtering
     if postcode:
-        query = query.filter(Property.postcode == postcode)
+        query = query.filter(Property.postcode.ilike(f"{postcode}%"))
 
     if property_type:
         query = query.filter(Property.property_type == property_type)
