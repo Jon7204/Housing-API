@@ -102,6 +102,8 @@ def get_properties(
             query = query.filter(Property.town_city.ilike(f"%{location}%"))
 
     if property_type:
+        if "residential" in property_type:
+            property_type = ["D","S","T","F"]
         property_type = [pt.upper() for pt in property_type]
         query = query.filter(Property.property_type.in_(property_type))
 
@@ -233,6 +235,8 @@ def price_trend(
         query = query.filter(Property.town_city.ilike(f"%{location}%"))
 
     if property_type:
+        if "residential" in property_type:
+            property_type = ["D","S","T","F"]
         property_type = [pt.upper() for pt in property_type]
         query = query.filter(Property.property_type.in_(property_type))
 
@@ -281,6 +285,9 @@ def top_expensive_streets(
 
     # Property type filtering
     if property_type:
+        if "residential" in property_type:
+            property_type = ["D","S","T","F"]
+        property_type = [pt.upper() for pt in property_type]
         query = query.filter(Property.property_type.in_(property_type))
 
     results = (
