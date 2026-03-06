@@ -76,7 +76,7 @@ def average_price( location: str = Query(...), db: Session = Depends(get_db)):
 @app.get("/properties", response_model=List[PropertyBase])
 def get_properties(
     location: Optional[str] = None,
-    property_type: Optional[str] = None,
+    property_type: Optional[List[str]] = Query(None),
     start: Optional[date] = None,
     end: Optional[date] = None,
     min_price: Optional[int] = None,
@@ -102,7 +102,8 @@ def get_properties(
             query = query.filter(Property.town_city.ilike(f"%{location}%"))
 
     if property_type:
-        query = query.filter(Property.property_type == property_type)
+        property_type = [pt.upper() for pt in property_type]
+        query = query.filter(Property.property_type.in_(property_type))
 
     if start:
         query = query.filter(Property.transfer_date >= start)
@@ -217,14 +218,26 @@ def delete_property(
 from sqlalchemy import func
 
 @app.get("/analytics/price-trend")
-def price_trend(db: Session = Depends(get_db)):
+def price_trend(
+    location: Optional[str] = None,
+    property_type: Optional[List[str]] = Query(None),
+    db: Session = Depends(get_db)
+):
+
+    query = db.query(
+        func.extract("year", Property.transfer_date).label("year"),
+        func.avg(Property.price).label("avg_price")
+    )
+
+    if location:
+        query = query.filter(Property.town_city.ilike(f"%{location}%"))
+
+    if property_type:
+        property_type = [pt.upper() for pt in property_type]
+        query = query.filter(Property.property_type.in_(property_type))
 
     results = (
-        db.query(
-            func.extract("year", Property.transfer_date).label("year"),
-            func.avg(Property.price).label("avg_price")
-        )
-        .group_by("year")
+        query.group_by("year")
         .order_by("year")
         .all()
     )
@@ -233,6 +246,5 @@ def price_trend(db: Session = Depends(get_db)):
         {"year": int(r.year), "average_price": round(r.avg_price, 2)}
         for r in results
     ]
-
 
 app.mount("/app", StaticFiles(directory="frontend", html=True), name="frontend")
