@@ -14,6 +14,8 @@
     <input id="location" placeholder="Town / City">
     <input id="min_price" placeholder="Min Price">
     <input id="max_price" placeholder="Max Price">
+    <input id="start_date" type="date">
+    <input id="end_date" type="date">
 
     <button onclick="search()">Search</button>
 
@@ -26,6 +28,10 @@
     <option value="date">Date (Old → New)</option>
     <option value="-date">Date (New → Old)</option>
 </select>
+
+
+<input id="limit" placeholder="Limit (default 50)">
+<input id="offset" placeholder="Offset">
 
 <table id="results">
     <thead>
