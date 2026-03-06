@@ -66,3 +66,21 @@ async function search() {
 document.getElementById("sort").addEventListener("change", search)
 document.getElementById("limit").addEventListener("change", search)
 document.getElementById("offset").addEventListener("change", search)
+
+function resetFilters() {
+
+    // Clear inputs
+    document.getElementById("location").value = ""
+    document.getElementById("min_price").value = ""
+    document.getElementById("max_price").value = ""
+
+    // Reset dropdown
+    document.getElementById("sort").value = ""
+
+    // Clear table
+    const table = document.querySelector("#results tbody")
+    table.innerHTML = ""
+
+    // Reset average price display
+    document.getElementById("avg_price").innerText = "Average Price: £"
+}
