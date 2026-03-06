@@ -34,11 +34,14 @@ async function search() {
         const row = `
         <tr>
             <td>${p.id}</td>
-            <td>${p.town_city}</td>
-            <td>${p.postcode}</td>
             <td>£${p.price}</td>
             <td>${p.transfer_date}</td>
-            <td>${p.property_type}</td>
+            <td>${p.postcode || ""}</td>
+            <td>${p.paon || ""}</td>
+            <td>${p.street || ""}</td>
+            <td>${p.town_city || ""}</td>
+            <td>${p.property_type || ""}</td>
+            <td>${p.tenure || ""}</td>
         </tr>
         `
 

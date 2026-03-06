@@ -29,11 +29,13 @@ table {
     width: 100%;
     border-collapse: collapse;
     background: white;
+    font-size: 14px;
 }
 
 th, td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
 th {
