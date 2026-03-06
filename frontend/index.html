@@ -18,6 +18,14 @@
     <button onclick="search()">Search</button>
 
 </div>
+<label for="sort">Sort By:</label>
+<select id="sort">
+    <option value="">None</option>
+    <option value="price">Price (Low → High)</option>
+    <option value="-price">Price (High → Low)</option>
+    <option value="date">Date (Old → New)</option>
+    <option value="-date">Date (New → Old)</option>
+</select>
 
 <table id="results">
     <thead>

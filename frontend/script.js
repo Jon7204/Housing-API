@@ -1,20 +1,22 @@
 async function search() {
 
-    const location = document.getElementById("location").value
-    const min_price = document.getElementById("min_price").value
-    const max_price = document.getElementById("max_price").value
+    const location = document.getElementById("location").value;
+    const min_price = document.getElementById("min_price").value;
+    const max_price = document.getElementById("max_price").value;
+    const sortValue = document.getElementById("sort").value;
 
-    let url = "/properties?"
+    let url = "/properties?";
 
-    if (location) url += `location=${location}&`
-    if (min_price) url += `min_price=${min_price}&`
-    if (max_price) url += `max_price=${max_price}&`
+    if (location) url += `location=${location}&`;
+    if (min_price) url += `min_price=${min_price}&`;
+    if (max_price) url += `max_price=${max_price}&`;
+    if (sortValue) url += `sort_by=${sortValue}&`;
 
-    const response = await fetch(url)
-    const data = await response.json()
+    const response = await fetch(url);
+    const data = await response.json();
 
-    const table = document.querySelector("#results tbody")
-    table.innerHTML = ""
+    const table = document.querySelector("#results tbody");
+    table.innerHTML = "";
 
     data.forEach(p => {
 
@@ -27,9 +29,8 @@ async function search() {
                 <td>${p.transfer_date}</td>
                 <td>${p.property_type}</td>
             </tr>
-        `
+        `;
 
-        table.innerHTML += row
-    })
-
+        table.innerHTML += row;
+    });
 }
