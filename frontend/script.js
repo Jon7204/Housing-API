@@ -47,6 +47,20 @@ async function search() {
 
         table.innerHTML += row
     })
+
+    if (location) {
+
+        const avgResponse = await fetch(`/properties/average-price?location=${location}`)
+        const avgData = await avgResponse.json()
+
+        const avgElement = document.getElementById("avg_price")
+
+        if (avgData.average_price !== null) {
+            avgElement.textContent = `Average Price: £${avgData.average_price.toLocaleString()}`
+        } else {
+            avgElement.textContent = "Average Price: No data"
+        }
+    }
 }
 
 document.getElementById("sort").addEventListener("change", search)
