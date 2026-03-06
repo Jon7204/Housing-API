@@ -1,24 +1,27 @@
+import sys
 import requests
 import pandas as pd
 from sqlalchemy.orm import Session
-from datetime import datetime
 
 from app.database import SessionLocal
 from app.models import Property
 
+MIN_YEAR = 1995
+MAX_YEAR = 2025   # update occasionally if needed
 
-DATA_URL = "http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-2023.csv"
 
 
-def import_data_streaming():
-    print("Streaming housing data...")
+BASE_URL = "http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-{}.csv"
 
-    response = requests.get(DATA_URL, stream=True)
+
+def import_year(year: int, db: Session):
+
+    url = BASE_URL.format(year)
+    print(f"Downloading {year}...")
+
+    response = requests.get(url, stream=True)
     response.raise_for_status()
 
-    db: Session = SessionLocal()
-
-    # Tell pandas to read from raw HTTP stream
     chunk_iter = pd.read_csv(
         response.raw,
         header=None,
@@ -26,6 +29,7 @@ def import_data_streaming():
     )
 
     for chunk in chunk_iter:
+
         chunk = chunk.dropna(subset=[1, 2])
 
         records = []
@@ -44,13 +48,38 @@ def import_data_streaming():
 
         db.bulk_insert_mappings(Property, records)
         db.commit()
-        print(f"Committed {len(records)} rows")
 
- 
+        print(f"{year}: inserted {len(records)} rows")
+
+
+def main():
+
+    if len(sys.argv) != 3:
+        print("Usage: python -m scripts.download_and_import <start_year> <end_year>")
+        sys.exit(1)
+
+    start_year = int(sys.argv[1])
+    end_year = int(sys.argv[2])
+
+    if start_year < MIN_YEAR or end_year > MAX_YEAR:
+        print(f"Valid year range is {MIN_YEAR}-{MAX_YEAR}")
+        sys.exit(1)
+
+    if start_year > end_year:
+        print("start_year must be less than or equal to end_year")
+        sys.exit(1)
+
+    db: Session = SessionLocal()
+
+    for year in range(start_year, end_year + 1):
+        try:
+            import_year(year, db)
+        except Exception as e:
+            print(f"Failed to import {year}: {e}")
 
     db.close()
-    print("Import complete.")
+    print("Import finished.")
 
 
 if __name__ == "__main__":
-    import_data_streaming()
+    main()

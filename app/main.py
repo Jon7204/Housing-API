@@ -214,7 +214,25 @@ def delete_property(
 
     return
 
+from sqlalchemy import func
 
+@app.get("/analytics/price-trend")
+def price_trend(db: Session = Depends(get_db)):
+
+    results = (
+        db.query(
+            func.extract("year", Property.transfer_date).label("year"),
+            func.avg(Property.price).label("avg_price")
+        )
+        .group_by("year")
+        .order_by("year")
+        .all()
+    )
+
+    return [
+        {"year": int(r.year), "average_price": round(r.avg_price, 2)}
+        for r in results
+    ]
 
 
 app.mount("/app", StaticFiles(directory="frontend", html=True), name="frontend")
