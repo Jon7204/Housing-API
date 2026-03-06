@@ -8,6 +8,7 @@ async function search() {
     const sortValue = document.getElementById("sort").value
     const limit = document.getElementById("limit").value
     const offset = document.getElementById("offset").value
+    const avgElement = document.getElementById("avg_price")
 
     let url = "/properties?"
     const params = []
@@ -53,13 +54,16 @@ async function search() {
         const avgResponse = await fetch(`/properties/average-price?location=${location}`)
         const avgData = await avgResponse.json()
 
-        const avgElement = document.getElementById("avg_price")
+        
 
-        if (avgData.average_price !== null) {
+        if (avgData.average_price > 0) {
             avgElement.textContent = `Average Price: £${avgData.average_price.toLocaleString()}`
         } else {
             avgElement.textContent = "Average Price: No data"
         }
+    }
+    else{
+        avgElement.textContent = "Average Price: No data"
     }
 }
 
