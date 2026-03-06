@@ -247,4 +247,59 @@ def price_trend(
         for r in results
     ]
 
+@app.get("/analytics/top-expensive-streets")
+def top_expensive_streets(
+    location: Optional[str] = None,
+    property_type: Optional[List[str]] = Query(None),
+    min_sales: int = Query(20, ge=1),
+    limit: int = Query(10, ge=1, le=100),
+    db: Session = Depends(get_db)
+):
+
+    query = db.query(
+        Property.street,
+        Property.town_city,
+        func.count(Property.id).label("sales"),
+        func.avg(Property.price).label("avg_price")
+    )
+
+    # Remove bad rows
+    query = query.filter(Property.street != None)
+
+    # Location filtering
+    if location:
+        location = location.upper()
+
+        if is_postcode(location):
+            query = query.filter(Property.postcode == location)
+
+        elif is_postcode_prefix(location):
+            query = query.filter(Property.postcode.like(f"{location}%"))
+
+        else:
+            query = query.filter(Property.town_city.ilike(f"%{location}%"))
+
+    # Property type filtering
+    if property_type:
+        query = query.filter(Property.property_type.in_(property_type))
+
+    results = (
+        query
+        .group_by(Property.street, Property.town_city)
+        .having(func.count(Property.id) >= min_sales)
+        .order_by(func.avg(Property.price).desc())
+        .limit(limit)
+        .all()
+    )
+
+    return [
+        {
+            "street": r.street,
+            "town_city": r.town_city,
+            "sales": r.sales,
+            "average_price": round(r.avg_price, 2)
+        }
+        for r in results
+    ]
+
 app.mount("/app", StaticFiles(directory="frontend", html=True), name="frontend")
