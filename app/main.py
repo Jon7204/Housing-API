@@ -3,11 +3,15 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from typing import List, Optional
 from datetime import date
+from fastapi.staticfiles import StaticFiles
 
 from .schemas import PropertyBase, PropertyCreate, PropertyUpdate, PropertyResponse
 from .database import SessionLocal
 from .models import Property
 from .utils import is_postcode, is_postcode_prefix
+
+
+
 
 app = FastAPI()
 
@@ -19,6 +23,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 
 @app.get("/")
@@ -208,3 +213,8 @@ def delete_property(
     db.commit()
 
     return
+
+
+
+
+app.mount("/app", StaticFiles(directory="frontend", html=True), name="frontend")
