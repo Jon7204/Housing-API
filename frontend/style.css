@@ -1,43 +1,76 @@
 body {
-    font-family: Arial;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 40px;
-    background: #f5f5f5;
+    background: #f4f6f8;
+    color: #333;
 }
 
 h1 {
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .search-box {
     background: white;
     padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-input {
-    padding: 8px;
-    margin-right: 10px;
+input, select {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    min-width: 140px;
 }
 
 button {
-    padding: 8px 14px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #2d72d9;
+    color: white;
+    font-weight: bold;
     cursor: pointer;
+}
+
+button:hover {
+    background: #1f57a8;
+}
+
+#avg_price {
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     background: white;
-    font-size: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    padding: 8px;
     text-align: center;
 }
 
 th {
-    background: #f0f0f0;
+    background: #2d72d9;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f7f9fc;
+}
+
+tr:hover {
+    background: #eef3ff;
 }
