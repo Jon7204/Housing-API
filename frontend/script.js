@@ -86,5 +86,5 @@ function resetFilters() {
     table.innerHTML = ""
 
     // Reset average price display
-    document.getElementById("avg_price").innerText = "Average Price: £"
+    document.getElementById("avg_price").innerText = "Average Price: (If location)"
 }
