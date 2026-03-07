@@ -1,0 +1,46 @@
+<h1>Housing Analytics</h1>
+
+<label>Location</label>
+<input id="location">
+
+<label>Property Type</label>
+<select id="property_type">
+    <option value="">All</option>
+    <option value="D">Detached</option>
+    <option value="S">Semi</option>
+    <option value="T">Terraced</option>
+    <option value="F">Flat</option>
+</select>
+
+<button onclick="runAnalytics()">Run Analytics</button>
+
+<hr>
+
+<div class="analytics-grid">
+
+    <div>
+        <h3>Price Trend</h3>
+        <canvas id="price_chart"></canvas>
+    </div>
+
+    <div>
+        <h3>Most Expensive Streets</h3>
+        <table id="expensive_table">
+            <thead>
+                <tr>
+                    <th>Street</th>
+                    <th>Town</th>
+                    <th>Sales</th>
+                    <th>Average Price</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+</div>
+
+<a href="index.html">Back to Search</a>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="analytics.js"></script>
