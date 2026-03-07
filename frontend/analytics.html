@@ -2,12 +2,13 @@
 <h2 style="text-align: center;">May take some time to load</h2>
 <link rel="stylesheet" href="style.css">
 
-<label>Location</label>
-<input id="location">
+<h2>Price Trend</h2>
 
+<label>Location</label>
+<input id="trend_location">
 
 <label>Property Type</label>
-<select id="property_type">
+<select id="trend_type">
     <option value="">All</option>
     <option value="D">Detached</option>
     <option value="S">Semi</option>
@@ -15,33 +16,44 @@
     <option value="F">Flat</option>
 </select>
 
-<button onclick="runAnalytics()">Run Analytics</button>
+<button onclick="searchPriceTrend()">Run</button>
 
+<canvas id="price_chart"></canvas>
 <hr>
 
-<div class="analytics-grid">
+<h2>Most Expensive Streets</h2>
 
-    <div>
-        <h3>Price Trend</h3>
-        <canvas id="price_chart"></canvas>
-    </div>
+<label>Location</label>
+<input id="streets_location">
 
-    <div>
-        <h3>Most Expensive Streets</h3>
-        <table id="expensive_table">
-            <thead>
-                <tr>
-                    <th>Street</th>
-                    <th>Town</th>
-                    <th>Sales</th>
-                    <th>Average Price</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
+<label>Property Type</label>
+<select id="streets_type">
+    <option value="">All</option>
+    <option value="D">Detached</option>
+    <option value="S">Semi</option>
+    <option value="T">Terraced</option>
+    <option value="F">Flat</option>
+</select>
 
-</div>
+<label>Minimum Sales</label>
+<input id="streets_min_sales" type="number" value="5">
+
+<label>Limit</label>
+<input id="streets_limit" type="number" value="10">
+
+<button onclick="searchExpensiveStreets()">Run</button>
+
+<table id="expensive_table">
+    <thead>
+        <tr>
+            <th>Street</th>
+            <th>Town</th>
+            <th>Sales</th>
+            <th>Average Price</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
 <a href="index.html">Back to Search</a>
 
