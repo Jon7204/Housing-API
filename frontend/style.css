@@ -81,3 +81,15 @@ tr:hover {
     gap: 40px;
     margin-top: 20px;
 }
+
+.controls-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.analytics-btn {
+    margin-left: auto;
+    padding: 8px 18px;
+}

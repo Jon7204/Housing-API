@@ -9,6 +9,7 @@
 
 <h1>UK Housing Market API</h1>
 
+
 <div class="search-box">
 
     <input id="location" placeholder="Location">
@@ -16,24 +17,36 @@
     <input id="max_price" placeholder="Max Price">
     <input id="start_date" type="date">
     <input id="end_date" type="date">
+    <select id="trend_type">
+        <option value="">All</option>
+        <option value="D">Detached</option>
+        <option value="S">Semi</option>
+        <option value="T">Terraced</option>
+        <option value="F">Flat</option>
+        <option value="O">Other</option>
+        <option value="residential">Residential</option>
+    </select>
+    
 
     <button onclick="search()">Search</button>
     <button onclick="resetFilters()">Reset</button>
-    <button onclick="location.href='analytics.html'">Analytics</button>
+    
 
 </div>
-<label for="sort">Sort By:</label>
-<select id="sort">
-    <option value="">None</option>
-    <option value="price">Price (Low → High)</option>
-    <option value="-price">Price (High → Low)</option>
-    <option value="date">Date (Old → New)</option>
-    <option value="-date">Date (New → Old)</option>
-</select>
+<div class="controls-row">
+    <label for="sort">Sort By:</label>
+    <select id="sort">
+        <option value="">None</option>
+        <option value="price">Price (Low → High)</option>
+        <option value="-price">Price (High → Low)</option>
+        <option value="date">Date (Old → New)</option>
+        <option value="-date">Date (New → Old)</option>
+    </select>
+    <input id="limit" placeholder="Limit (default 50)">
+    <input id="offset" placeholder="Offset">
 
-
-<input id="limit" placeholder="Limit (default 50)">
-<input id="offset" placeholder="Offset">
+    <button class="analytics-btn" onclick="location.href='analytics.html'">Open Analytics</button>
+</div>
 
 <h2 id="avg_price">Average Price: (If Location)</h2>
 
