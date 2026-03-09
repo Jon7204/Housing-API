@@ -6,9 +6,11 @@
     <h2>Price Trend</h2>
     <button class="page-btn" onclick="location.href='index.html'">Back to Search</button>
 </div>
+
 <div class="search-box">
     <label>Location</label>
     <input id="trend_location" placeholder="Location">
+
     <label>Property Type</label>
     <select id="trend_type">
         <option value="">All</option>
@@ -19,10 +21,13 @@
         <option value="residential">Residential</option>
     </select>
 
-    <button onclick="searchPriceTrend()">Run</button>
+    <button onclick="searchPriceTrend()">Add</button>
 </div>
+
+<!-- active datasets -->
+<div id="active_datasets"></div>
+
 <canvas id="price_chart"></canvas>
-<hr>
 
 <h2>Most Expensive Streets</h2>
 
@@ -45,7 +50,7 @@
     <input id="streets_min_sales" type="number" value="5">
 
     <label>Limit</label>
-    <input id="streets_limit" type="number" value="10">
+    <input id="streets_limit" type="number" value="5">
 
     <button onclick="searchExpensiveStreets()">Run</button>
 </div>

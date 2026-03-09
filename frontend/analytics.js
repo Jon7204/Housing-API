@@ -1,6 +1,18 @@
-let chart
+let trendChart = null
+let trendDatasets = []
+let trendLabels = []
+let colorIndex = 0
 
-let trendChart
+const chartColors = [
+    "#3366CC",
+    "#DC3912",
+    "#FF9900",
+    "#109618",
+    "#990099",
+    "#0099C6",
+    "#DD4477",
+    "#66AA00"
+]
 
 async function searchPriceTrend() {
 
@@ -21,21 +33,41 @@ async function searchPriceTrend() {
     const years = data.map(d => d.year)
     const prices = data.map(d => d.average_price)
 
+    trendLabels = years
+
+    const label = `${location || "All"} ${type || "All"}`
+
+    const color = chartColors[colorIndex % chartColors.length]
+    colorIndex++
+
+    const dataset = {
+        label: label,
+        data: prices,
+        borderColor: color,
+        backgroundColor: color,
+        tension: 0.2
+    }
+
+    trendDatasets.push(dataset)
+
+    addDatasetTag(label, color)
+
+    renderTrendChart()
+}
+
+function renderTrendChart() {
+
+    const ctx = document.getElementById("price_chart")
+
     if (trendChart) {
         trendChart.destroy()
     }
 
-    const ctx = document.getElementById("price_chart")
-
     trendChart = new Chart(ctx, {
         type: "line",
         data: {
-            labels: years,
-            datasets: [{
-                label: "Average Price (£)",
-                data: prices,
-                tension: 0.2
-            }]
+            labels: trendLabels,
+            datasets: trendDatasets
         },
         options: {
             scales: {
@@ -50,6 +82,33 @@ async function searchPriceTrend() {
         }
     })
 }
+
+function addDatasetTag(label, color) {
+
+    const container = document.getElementById("active_datasets")
+
+    const tag = document.createElement("div")
+    tag.className = "dataset-tag"
+
+    tag.style.backgroundColor = color
+
+    tag.innerHTML = `
+        ${label}
+        <span onclick="removeDataset('${label}', this)">✖</span>
+    `
+
+    container.appendChild(tag)
+}
+
+function removeDataset(label, element) {
+
+    trendDatasets = trendDatasets.filter(d => d.label !== label)
+
+    element.parentElement.remove()
+
+    renderTrendChart()
+}
+
 
 async function searchExpensiveStreets() {
 

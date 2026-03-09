@@ -93,3 +93,21 @@ tr:hover {
     margin-left: auto;
     padding: 8px 18px;
 }
+
+#active_datasets {
+    margin: 15px 0;
+}
+
+.dataset-tag{
+    display:inline-block;
+    color:white;
+    padding:6px 10px;
+    margin:5px;
+    border-radius:6px;
+    font-size:14px;
+}
+
+.dataset-tag span{
+    margin-left:8px;
+    cursor:pointer;
+}
