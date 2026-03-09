@@ -37,6 +37,11 @@ async function searchPriceTrend() {
 
     const label = `${location || "All"} ${type || "All"}`
 
+    if (trendChart && trendChart.data.datasets.some(d => d.label === label)) {
+        alert("This dataset has already been added.")
+        return
+    }
+
     const color = chartColors[colorIndex % chartColors.length]
     colorIndex++
 
