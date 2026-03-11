@@ -1,6 +1,12 @@
 # Housing-API
 A backend system that stores housing data and answers questions about rent and affordability.
 
+## API Documentation
+
+The full API documentation is available here:
+
+[API Documentation](api_documentation.pdf)
+
 # To run the API:
 
 # 1. Clone Repository
