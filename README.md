@@ -5,7 +5,7 @@ A backend system that stores housing data and answers questions about rent and a
 
 The full API documentation is available here:
 
-[API Documentation](api_documentation.pdf)
+[API Documentation](API_documentation.pdf)
 
 # To run the API:
 
@@ -15,23 +15,23 @@ The full API documentation is available here:
 
 # 2. Setup Virtual Environment
 1. python -m venv venv
-If using Mac/Linux:  
+  If using Mac/Linux:  
 2. source venv/bin/activate
-If using Windows:  
+  If using Windows:  
 2. venv\Scripts\activate
 
 # 3. Install Dependencies
 1. pip install -r requirements.txt
 
 # 4. Install PostgreSQL
-If using Mac:
+  If using Mac:
 1. brew install postgresql
 
-If using Windows: 
+  If using Windows: 
 1.	Download installer from: https://www.postgresql.org/download/windows/
 2.	Run the installer
 
-If using Linux:
+  If using Linux:
 1. sudo apt update
 2. sudo apt install postgresql postgresql-contrib
 
