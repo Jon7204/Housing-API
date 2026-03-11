@@ -15,9 +15,11 @@ The full API documentation is available here:
 
 # 2. Setup Virtual Environment
 1. python -m venv venv
-  If using Mac/Linux:  
-2. source venv/bin/activate
-  If using Windows:  
+  If using Mac/Linux:
+
+3. source venv/bin/activate
+  If using Windows:
+
 2. venv\Scripts\activate
 
 # 3. Install Dependencies
