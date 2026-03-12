@@ -1,6 +1,12 @@
 # Housing-API
 A backend system that stores housing data and answers questions about rent and affordability.
 
+# Using the API
+* The location field takes UK towns, cities,postcode prefixes and complete postcodes allowing alot of flexibility when searching.
+* The dataset the API uses, HM Land Registry Price Paid dataset, only contains years 1995 to the Current Year.
+* The property types are as follows: D - Detatched, F - Flat, S - Semi detached, T - Terraced.
+* The tenure types are as follows: F - Freehold, L - Leasehold
+
 ## API Documentation
 
 The full API documentation is available here:
@@ -47,7 +53,7 @@ Verify with psql --version
 3. python -m scripts.create_tables
 4. python -m scripts.download_and_import {start year} {end year}
   e.g python -m scripts.download_and_import 2021 2023
-  This may take a few minutes and beware the greater difference between star year and end year the longer it takes to run. The HM Land Registry Price Paid dataset only contains years 1995 to 2025, so do not try to import years from before or after this period.
+  This may take a few minutes and beware the greater difference between star year and end year the longer it takes to run. The HM Land Registry Price Paid dataset only contains years 1995 to the current year, so do not try to import years from before or after this period.
 
 # 6. Run the API
 1. uvicorn app.main:app --reload
