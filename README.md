@@ -33,21 +33,24 @@ The full API documentation is available here:
 # 3. Install Dependencies
 1. pip install -r requirements.txt
 
-# 4. Install PostgreSQL
+If you want to create your own database follow **4. Option 1** if not, follow **4. Option 2**
+# 4. Option 1 - Install PostgreSQL
+1. Open database.py and choose the corresponding DATABASE_URL
+
   If using Mac:
-1. brew install postgresql
+2. brew install postgresql
 
   If using Windows: 
-1.	Download installer from: https://www.postgresql.org/download/windows/
-2.	Run the installer
+2.	Download installer from: https://www.postgresql.org/download/windows/
+3.	Run the installer
 
   If using Linux:
-1. sudo apt update
-2. sudo apt install postgresql postgresql-contrib
+2. sudo apt update
+3. sudo apt install postgresql postgresql-contrib
 
 Verify with psql --version
 
-# 5. Create the database
+## Create the database
 1. createdb housing_db
 2. verify it exists with: psql -l
 3. python -m scripts.create_tables
@@ -55,7 +58,10 @@ Verify with psql --version
   e.g python -m scripts.download_and_import 2021 2023
   This may take a few minutes and beware the greater difference between star year and end year the longer it takes to run. The HM Land Registry Price Paid dataset only contains years 1995 to the current year, so do not try to import years from before or after this period.
 
-# 6. Run the API
+# 4. Option 2 - Use pre-created database implemented with render (years 2021-2023)
+1. Open database.py and choose the corresponding DATABASE_URL
+
+# 5. Run the API
 1. uvicorn app.main:app --reload
 2. Access the API:
 * API root: http://127.0.0.1:8000/
