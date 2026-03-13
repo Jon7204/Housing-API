@@ -178,3 +178,26 @@ async function loadPriceTrend(params) {
         }
     )
 }
+
+function resetFilters() {
+    document.getElementById("trend_location").value = ""
+    document.getElementById("trend_type").value = ""
+    document.getElementById("streets_location").value = ""
+    document.getElementById("streets_type").value = ""
+    document.getElementById("streets_min_sales").value = ""
+    document.getElementById("streets_limit").value = ""
+
+    trendDatasets = []
+    trendLabels = []
+    colorIndex = 0
+
+    if (trendChart) {
+        trendChart.destroy()
+        trendChart = null
+    }
+
+    document.getElementById("active_datasets").innerHTML = ""
+
+    const table = document.querySelector("#expensive_table tbody")
+    table.innerHTML = ""
+}
