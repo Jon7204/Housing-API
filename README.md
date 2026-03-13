@@ -69,4 +69,9 @@ Verify with psql --version
 * Interactive documentation (Swagger UI): http://127.0.0.1:8000/docs
 * OpenAPI schema: http://127.0.0.1:8000/openapi.json
 
+## Deployed version
+* Deployed API root: https://housing-api-sofs.onrender.com
+* Deployed API frontend: https://housing-api-sofs.onrender.com/app
+* Deployed Interactive documentation: https://housing-api-sofs.onrender.com/docs
+
 Please note this API was developed and tested on MacOS
