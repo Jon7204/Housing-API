@@ -62,3 +62,5 @@ Verify with psql --version
 * API frontend: http://127.0.0.1:8000/app
 * Interactive documentation (Swagger UI): http://127.0.0.1:8000/docs
 * OpenAPI schema: http://127.0.0.1:8000/openapi.json
+
+Please note this API was developed and tested on MacOS
