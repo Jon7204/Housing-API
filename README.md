@@ -1,17 +1,28 @@
 # Housing-API
-A backend system that stores housing data and answers questions about rent and affordability.
+A RESTful API for exploring and analysing UK residential property transaction data based on the HM Land Registry Price Paid dataset. The API allows users to query property sales using flexible filters such as location, price range, property type, and date. In addition to standard property search functionality, the system provides analytical endpoints for exploring housing market trends.
 
-# Using the API
-* The location field takes UK towns, cities,postcode prefixes and complete postcodes allowing alot of flexibility when searching.
-* The dataset the API uses, HM Land Registry Price Paid dataset, only contains years 1995 to the Current Year.
-* The property types are as follows: D - Detatched, F - Flat, S - Semi detached, T - Terraced.
-* The tenure types are as follows: F - Freehold, L - Leasehold
+The API is built using FastAPI and PostgreSQLs. Users can retrieve individual property records, perform full CRUD operations, and access analytical insights such as average price trends over time and the most expensive streets within a given area.
+
+A lightweight frontend interface is also included to demonstrate API functionality, allowing users to search properties and visualise price trends through an interactive chart.
+
+Key features include:
+	•	Property search with filters for location, price, date, and property type
+	•	Full CRUD operations for property records
+	•	Analytical endpoints for price trends and high-value streets
+	•	RESTful architecture with structured JSON responses
+	•	PostgreSQL-backed storage for scalable querying
 
 ## API Documentation
 
 The full API documentation is available here:
 
 [API Documentation](API_documentation.pdf)
+
+# Using the API
+* The location field takes UK towns, cities,postcode prefixes and complete postcodes allowing alot of flexibility when searching.
+* The dataset the API uses, HM Land Registry Price Paid dataset, only contains years 1995 to the Current Year.
+* The property types are as follows: D - Detatched, F - Flat, S - Semi detached, T - Terraced.
+* The tenure types are as follows: F - Freehold, L - Leasehold
 
 # To run the API:
 
