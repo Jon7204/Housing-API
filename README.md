@@ -58,7 +58,7 @@ Verify with psql --version
   e.g python -m scripts.download_and_import 2021 2023
   This may take a few minutes and beware the greater difference between star year and end year the longer it takes to run. The HM Land Registry Price Paid dataset only contains years 1995 to the current year, so do not try to import years from before or after this period.
 
-# 4. Option 2 - Use pre-created database implemented with render (years 2021-2023)
+# 4. Option 2 - Use pre-created database implemented with render - only includes years 2021 - 2023
 1. Open database.py and choose the corresponding DATABASE_URL
 
 # 5. Run the API
@@ -69,7 +69,7 @@ Verify with psql --version
 * Interactive documentation (Swagger UI): http://127.0.0.1:8000/docs
 * OpenAPI schema: http://127.0.0.1:8000/openapi.json
 
-## Deployed version
+## Deployed version - only includes years 2021 - 2023
 * Deployed API root: https://housing-api-sofs.onrender.com
 * Deployed API frontend: https://housing-api-sofs.onrender.com/app
 * Deployed Interactive documentation: https://housing-api-sofs.onrender.com/docs
